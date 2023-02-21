@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { FormEvent, useEffect, useState } from "react";
 import { useInput } from "../../hooks/useInput";
-import { OptionsTypes } from "../../types/types";
+import { TipsOption } from "../../types/types";
 import { Button } from "../Button/Button";
 import { CustomSelect } from "../CustomSelect/CustomSelect";
 import { Input } from "../Input/Input";
 import { StyledForm, Title, Subtitle, Total, InputGroup } from "./style";
 
-const options: OptionsTypes[] = [
+const options: TipsOption[] = [
   { value: 10, label: "10 %" },
   { value: 15, label: "15 %" },
   { value: 20, label: "20 %" },
@@ -18,15 +18,18 @@ export const Form = () => {
 
   const [total, setTotal] = useState(0);
 
-  const [selectedValue, setValue] = useState<OptionsTypes>(options[0]);
+  const [selectedValue, setValue] = useState<TipsOption>(options[0]);
 
-  const onChange = (event: OptionsTypes | null) => {
+  const [isButtonDisabled, setisDisabledButton] = useState(true);
+
+  const onChange = (event: TipsOption | null) => {
     if (event) {
       setValue(event);
     }
   };
 
-  const handleTips = () => {
+  const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
+    event.preventDefault();
     const totalTips =
       Number(bill.value) +
       Number(bill.value) * (Number(selectedValue.value) / 100);
@@ -34,16 +37,14 @@ export const Form = () => {
     setTotal(amountBill);
   };
 
-  const [buttonDisabled, setDisabledButton] = useState(true);
-
   useEffect(() => {
     bill.value && person.value
-      ? setDisabledButton(false)
-      : setDisabledButton(true);
+      ? setisDisabledButton(false)
+      : setisDisabledButton(true);
   }, [bill.value, person.value]);
 
   return (
-    <StyledForm>
+    <StyledForm onSubmit={handleSubmit}>
       <Title>Welcome to App</Title>
       <Subtitle>Let’s go calculate your tips</Subtitle>
       <InputGroup>
@@ -54,7 +55,7 @@ export const Form = () => {
           onChange={bill.OnChange}
         />
         <Input
-          placeholder="Enter  persons"
+          placeholder="Enter persons"
           type="number"
           {...person}
           onChange={person.OnChange}
@@ -65,12 +66,8 @@ export const Form = () => {
           options={options}
         />
       </InputGroup>
-      <Total>{`Total:${total.toFixed(2)}$`}</Total>
-      <Button
-        type="button"
-        handleTotal={handleTips}
-        buttonDisabled={buttonDisabled}
-      />
+      <Total>Total:${total.toFixed(2)}$</Total>
+      <Button type="submit" isDisabled={isButtonDisabled} />
     </StyledForm>
   );
 };

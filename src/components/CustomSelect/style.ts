@@ -1,8 +1,8 @@
 import { StylesConfig } from "react-select";
-import { OptionsTypes } from "../../types/types";
+import { TipsOption } from "../../types/types";
 
-export const selectStyles: StylesConfig<OptionsTypes> = {
-  control: (baseStyles, state) => ({
+export const selectStyles: StylesConfig<TipsOption> = {
+  control: (baseStyles) => ({
     ...baseStyles,
     border: "none",
     borderRadius: "30px",

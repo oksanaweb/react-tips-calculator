@@ -1,19 +1,11 @@
 import { type } from "os";
-import React from "react";
+import React, { ButtonHTMLAttributes, FormEvent } from "react";
 import { StyledButton } from "./styles";
 
-type ButtonType = "button" | "submit" | "reset";
-
-interface ButtonProps {
-  handleTotal: () => void;
-  type: ButtonType;
-  buttonDisabled: boolean;
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  isDisabled: boolean;
 }
 
-export const Button = ({ type, handleTotal, buttonDisabled }: ButtonProps) => {
-  return (
-    <StyledButton type={type} onClick={handleTotal} disabled={buttonDisabled}>
-      Ohhhoooo 🍻
-    </StyledButton>
-  );
+export const Button = ({ isDisabled }: ButtonProps) => {
+  return <StyledButton disabled={isDisabled}>Ohhhoooo 🍻</StyledButton>;
 };

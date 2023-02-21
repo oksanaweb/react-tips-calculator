@@ -1,12 +1,12 @@
 import React from "react";
 import Select from "react-select";
-import { OptionsTypes } from "../../types/types";
+import { TipsOption } from "../../types/types";
 import { selectStyles } from "./style";
 
 interface SelectProps {
-  options: OptionsTypes[];
-  value: OptionsTypes;
-  onChange: (event: OptionsTypes | null) => void;
+  options: TipsOption[];
+  value: TipsOption;
+  onChange: (event: TipsOption | null) => void;
 }
 
 export const CustomSelect = ({ options, value, onChange }: SelectProps) => {
