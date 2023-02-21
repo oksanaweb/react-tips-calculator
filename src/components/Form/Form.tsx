@@ -22,12 +22,6 @@ export const Form = () => {
 
   const [isButtonDisabled, setisDisabledButton] = useState(true);
 
-  const onChange = (event: TipsOption | null) => {
-    if (event) {
-      setValue(event);
-    }
-  };
-
   const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
     const totalTips =
@@ -62,11 +56,11 @@ export const Form = () => {
         />
         <CustomSelect
           value={selectedValue}
-          onChange={onChange}
+          onChange={setValue}
           options={options}
         />
       </InputGroup>
-      <Total>Total:${total.toFixed(2)}$</Total>
+      <Total>Total:{total.toFixed(2)}$</Total>
       <Button type="submit" isDisabled={isButtonDisabled} />
     </StyledForm>
   );

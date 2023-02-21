@@ -1,20 +1,24 @@
 import React from "react";
-import Select from "react-select";
+import Select, { SingleValue } from "react-select";
 import { TipsOption } from "../../types/types";
 import { selectStyles } from "./style";
 
 interface SelectProps {
   options: TipsOption[];
   value: TipsOption;
-  onChange: (event: TipsOption | null) => void;
+  onChange: (option: TipsOption) => void;
 }
 
-export const CustomSelect = ({ options, value, onChange }: SelectProps) => {
+export const CustomSelect = ({ value, onChange, options }: SelectProps) => {
+  const handleTips = (option: SingleValue<TipsOption>): void => {
+    if (option) onChange(option);
+  };
+
   return (
     <Select
       options={options}
       styles={selectStyles}
-      onChange={onChange}
+      onChange={handleTips}
       value={value}
       isMulti={false}
     />
