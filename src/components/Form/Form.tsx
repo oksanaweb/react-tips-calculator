@@ -35,6 +35,7 @@ export const Form = () => {
     bill.value && person.value
       ? setisDisabledButton(false)
       : setisDisabledButton(true);
+    setTotal(0);
   }, [bill.value, person.value]);
 
   return (
